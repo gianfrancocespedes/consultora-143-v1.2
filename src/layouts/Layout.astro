@@ -1,0 +1,99 @@
+---
+import Sidebar from '@/components/Sidebar.astro';
+import { ViewTransitions } from 'astro:transitions';
+
+const { title } = Astro.props;
+const { currentLocale } = Astro;
+---
+
+<!doctype html>
+<html lang={currentLocale}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/svg+xml" href="/consultora.jpg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        <ViewTransitions/>
+        
+        <script>
+
+            // Función para obtener el tema actual
+            const getTheme = (() => {
+
+                // Si el tema está guardado en localStorage, lo obtenemos
+                if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+                    return localStorage.getItem('theme');
+                }
+
+                // Si no está guardado en localStorage, obtenemos el tema del sistema
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    return 'dark';
+                }
+
+                // Si no está guardado en localStorage y el sistema no tiene tema oscuro, establecemos el tema claro por defecto
+                return 'light';
+            });
+        
+            // Función para establecer el tema en la página
+            const setTheme = ((theme) => {
+                if(theme == 'light'){
+                    document.documentElement.classList.remove('dark');
+                }else{
+                    document.documentElement.classList.add('dark');
+                }
+            });
+            
+            // Bloque de código para establecer el tema al cargar la página
+            const THEME = getTheme();
+            console.log('layout', THEME);
+            setTheme(THEME)
+            localStorage.setItem('theme', THEME);
+
+            // Bloque de código para establecer el tema cuando viene de otra página
+            document.addEventListener('astro:after-swap', function () {
+                setTheme(getTheme());
+            });
+
+        </script>
+	</head>
+	<body class="bg-gray-100 dark:bg-gray-900">
+        <Sidebar client:load/>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+
+	/* Añadidos */
+
+	html {
+        width: fit-content;
+    }
+
+    @media (min-width: 270px) {
+        html {
+            width: 100%;
+        }
+    }
+
+
+	/* Venían con */
+	/* :root {
+		--accent: 136, 58, 234;
+		--accent-light: 224, 204, 250;
+		--accent-dark: 49, 10, 101;
+		--accent-gradient: linear-gradient(
+			45deg,
+			rgb(var(--accent)),
+			rgb(var(--accent-light)) 30%,
+			white 60%
+		);
+	} */
+	html {
+		font-family: system-ui, sans-serif;
+		/* background: #13151a; */
+		background-size: 224px;
+	}
+</style>

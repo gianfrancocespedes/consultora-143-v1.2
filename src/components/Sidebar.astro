@@ -1,0 +1,300 @@
+---
+import ItemMenu from '@/components/ItemMenu.astro';
+import { sidebarData } from '@/scripts/sidebar';
+---
+
+<div class="bg-gray-50 dark:bg-gray-800 w-full" transition:persist="sidebar">
+
+    <!-- Hamburger -->
+    <button
+        id="hambuger"
+        type="button"
+        class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+    >
+        <svg
+            class="w-6 h-6"
+            aria-hidden="true"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+            ></path>
+        </svg>
+    </button>
+
+    <!-- Sidebar -->
+    <aside
+        id="logo-sidebar"
+        class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
+    >
+        <div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800">
+            <!-- Logo -->
+            <div class="flex items-center pl-2.5 mb-5">
+                <a href="/" class="flex items-center">
+                    <img
+                        src="/consultora.jpg"
+                        class="h-6 mr-3 md:h-7"
+                        alt="Consultora 143 Logo"
+                    />
+                    <span
+                        class="self-center text-base font-semibold whitespace-nowrap dark:text-white"
+                        >Consultora 143</span
+                    >
+                </a>
+                <button
+                    id="quit-sidebar"
+                    type="button"
+                    class="hidden md:inline-flex justify-center ml-8 rounded cursor-pointer
+                     bg-white dark:bg-gray-800  
+                     hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                    <svg
+                        class="text-white dark:text-gray-800 p-2 hover:text-gray-600 dark:hover:text-white"
+                        width="40"
+                        height="40"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path d="M18.3639 7.75735L16.9497 6.34314L11.2929 12L16.9497 17.6568L18.3639 16.2426L14.1213 12L18.3639 7.75735Z" fill="currentColor"/>
+                        <path d="M11.2929 6.34314L12.7071 7.75735L8.46447 12L12.7071 16.2426L11.2929 17.6568L5.63605 12L11.2929 6.34314Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+            <ul class="space-y-2 font-medium">
+                {
+                    sidebarData.map(elem => {
+                        return (
+                            <ItemMenu data={elem} />
+                        )
+                    })
+                }
+            </ul>
+        </div>
+    </aside>
+
+</div>
+
+<script is:inline>
+
+    // Ocultar sidebar al cambiar de página
+    document.addEventListener('astro:after-swap', () => {
+
+        // Obtenemos el elemento del sidebar
+        let sidebar = document.getElementById('logo-sidebar');
+
+        // Obtenemos el ancho de la ventana
+        let widthSize = document.documentElement.scrollWidth
+
+        if (widthSize < 768) {
+            // Clases
+            sidebar.classList.remove("transform-none");
+            sidebar.classList.add("-translate-x-full");
+        }
+
+    });
+
+    // Mostrar sidebar
+    document.getElementById('hambuger')?.addEventListener('click', () => {
+
+        // Obtenemos el elemento del sidebar
+        let sidebar = document.getElementById('logo-sidebar');
+
+        // Clases
+        sidebar.classList.remove("-translate-x-full");
+        sidebar.classList.add("transform-none");
+
+        let backdropStr = '<div drawer-backdrop="" class="bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-30"></div>';
+        let parser = new DOMParser();
+        let backdropElem = parser.parseFromString(backdropStr, 'text/html').body.firstChild;
+
+        // Agregamos el backdrop
+        document.body.appendChild(backdropElem);
+
+    });
+
+    // Cerrar sidebar
+    document.addEventListener('click', (e) => {
+
+        if (e.target.hasAttribute('data-collapse-toggle')) {
+            let dropdownId = e.target.getAttribute('data-collapse-toggle');
+            let dropdown = document.getElementById(dropdownId);
+
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        }
+    });
+
+    // Cerrar sidebar con tecla ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+
+            // Obtenemos el elemento del sidebar
+            let sidebar = document.getElementById('logo-sidebar');
+
+            // Clases
+            sidebar.classList.remove("transform-none");
+            sidebar.classList.add("-translate-x-full");
+
+            // Atributos
+            sidebar.setAttribute("aria-hidden", "true");
+            sidebar.removeAttribute("aria-modal");
+            sidebar.removeAttribute("role");
+
+            // Eliminamos el backdrop
+            let backdrop = document.querySelector('[drawer-backdrop]');
+            if (backdrop) {
+                backdrop.remove();
+            }
+            
+        }
+    });
+
+    // Cerrar sidebar desde el botón (<<)
+    document.getElementById('quit-sidebar')?.addEventListener('click', () => {
+
+        // Obtenemos el elemento del sidebar
+        let sidebar = document.getElementById('logo-sidebar');
+
+        // Clases
+        sidebar.classList.remove("transform-none");
+        sidebar.classList.remove("md:translate-x-0");
+        sidebar.classList.add("-translate-x-full");
+
+        // Obtenemos el elemento html main
+        let main = document.querySelector('main');
+        if (main) {
+            // Removemos la clase para que el contenido se ajuste al ancho de la pantalla
+            main.classList.remove("md:ml-64");
+        }
+        
+        // Añadimos un botón en la parte superior izquierda para mostrar el sidebar de nuevo
+        let button = document.createElement('button');
+        button.innerHTML = `
+            <svg 
+                class="p-2 text-transparent hover:text-gray-600 dark:hover:text-white hover:delay-100"
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path
+                    d="M5.63605 7.75735L7.05026 6.34314L12.7071 12L7.05029 17.6568L5.63608 16.2426L9.87869 12L5.63605 7.75735Z"
+                    fill="currentColor"
+                />
+                <path
+                    d="M12.7071 6.34314L11.2929 7.75735L15.5356 12L11.2929 16.2426L12.7072 17.6568L18.364 12L12.7071 6.34314Z"
+                    fill="currentColor"
+                />
+            </svg>`;
+        button.classList.add('md:inline-flex', 'fixed', 'top-4', 'left-0', 'rounded', 'cursor-pointer', 'hover:delay-100',
+                            'bg-transparent', 'dark:bg-transparent', 'hover:bg-gray-100', 'dark:hover:bg-gray-700');
+        button.id = 'open-sidebar';
+
+        button.addEventListener('click', () => {
+            // Obtenemos el elemento del sidebar
+            let sidebar = document.getElementById('logo-sidebar');
+
+            // Clases
+            sidebar.classList.remove("-translate-x-full");
+            sidebar.classList.add("transform-none");
+            sidebar.classList.add("md:translate-x-0");
+
+            // Obtenemos el elemento html main
+            let main = document.querySelector('main');
+            if (main) {
+                // Removemos la clase para que el contenido se ajuste al ancho de la pantalla
+                main.classList.add("md:ml-64");
+            }
+
+            // Eliminamos el botón
+            button.remove();
+        });
+
+        document.body.appendChild(button);
+
+    });
+
+    // Asignar listeners a los elementos del sidebar que sean desplegables
+    document.querySelectorAll('[data-collapse-toggle]').forEach((element) => {
+        element.addEventListener('click', () => {
+            let dropdownId = element.getAttribute('data-collapse-toggle');
+            let dropdown = document.getElementById(dropdownId);
+
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        });
+    });
+
+</script>
+
+
+<!-- <script>
+	const sidebar = document.getElementById('sidebar');
+
+	if (sidebar) {
+		const toggleSidebarMobile = (
+			sidebar: HTMLElement,
+			sidebarBackdrop: HTMLElement,
+			toggleSidebarMobileHamburger: HTMLElement,
+			toggleSidebarMobileClose: HTMLElement,
+		) => {
+			sidebar.classList.toggle('hidden');
+			sidebarBackdrop.classList.toggle('hidden');
+			toggleSidebarMobileHamburger.classList.toggle('hidden');
+			toggleSidebarMobileClose.classList.toggle('hidden');
+		};
+
+		const toggleSidebarMobileEl = document.getElementById(
+			'toggleSidebarMobile',
+		);
+		const sidebarBackdrop = document.getElementById('sidebarBackdrop')!;
+		const toggleSidebarMobileHamburger = document.getElementById(
+			'toggleSidebarMobileHamburger',
+		)!;
+		const toggleSidebarMobileClose = document.getElementById(
+			'toggleSidebarMobileClose',
+		)!;
+		const toggleSidebarMobileSearch = document.getElementById(
+			'toggleSidebarMobileSearch',
+		)!;
+
+		toggleSidebarMobileSearch?.addEventListener('click', () => {
+			toggleSidebarMobile(
+				sidebar,
+				sidebarBackdrop,
+				toggleSidebarMobileHamburger,
+				toggleSidebarMobileClose,
+			);
+		});
+
+		toggleSidebarMobileEl?.addEventListener('click', () => {
+			toggleSidebarMobile(
+				sidebar,
+				sidebarBackdrop,
+				toggleSidebarMobileHamburger,
+				toggleSidebarMobileClose,
+			);
+		});
+
+		sidebarBackdrop?.addEventListener('click', () => {
+			toggleSidebarMobile(
+				sidebar,
+				sidebarBackdrop,
+				toggleSidebarMobileHamburger,
+				toggleSidebarMobileClose,
+			);
+		});
+	}
+</script> -->
