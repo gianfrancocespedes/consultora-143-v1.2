@@ -1,3 +1,15 @@
-<div class="col-span-12 grid grid-cols-12 gap-4 p-4 bg-white border border-gray-200 rounded-lg shadow dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+---
+const { numColSpan, numGridCols } = Astro.props;
+
+const colSpan = numColSpan ? `col-span-${numColSpan}` : 'col-span-12';
+const gridCols = numGridCols ? `grid-cols-${numGridCols}` : 'grid-cols-12';
+
+let style = `${colSpan} grid ${gridCols} gap-4 p-4 sm:p-6 rounded-lg`;
+style += ' bg-white';            // Light mode color
+style += ' dark:bg-gray-800'    // Dark mode color
+style += ' border border-gray-200 dark:border-gray-700 shadow'; // Other styles
+---
+
+<div class={style}>
     <slot />
 </div>

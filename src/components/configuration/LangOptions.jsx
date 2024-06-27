@@ -44,7 +44,7 @@ export function LangOptions ( { currentLocale } ) {
 						{/* <label htmlFor="distance" className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">
 							Select distance
 						</label> */}
-						<Select id="distance" name="distance" value={value} onValueChange={setValue} className="mt-2">
+						<Select value={value} onValueChange={setValue} className="mt-2">
 							<SelectItem value="es" icon={currentLocale == 'es' ? CheckIcon : null}>Español</SelectItem>
 							<SelectItem value="en" icon={currentLocale == 'en' ? CheckIcon : null}>Inglés</SelectItem>
 						</Select>
@@ -53,7 +53,8 @@ export function LangOptions ( { currentLocale } ) {
 						<Button color='red' className='px-7' size="xs" variant="secondary" onClick={() => setIsOpen(false)}>
 							Cerrar
 						</Button>
-						<Button className='px-7' size="xs" variant="primary">
+                        {/* Redireccionar a una url */}
+						<Button className='px-7' size="xs" variant="primary" onClick={() => window.location.href = value == 'es' ? '/configuracion' : 'en/configuration'}>
 							Cambiar
 						</Button>
 					</div>

@@ -6,14 +6,20 @@ import ServicesIcon from '@/icons/Services.astro'
 import ContactsIcon from '@/icons/Contacts.astro'
 import ListIcon from '@/icons/List.astro'
 import ConfigurationIcon from '@/icons/Configuration.astro'
+import { getLangFromUrl, useTranslatedPath } from '@/i18n/index'
+import { sidebar } from '@/i18n/ui'
 const {itemName, svgName, href, info, children} = Astro.props.data;
 const hasChildren = Array.isArray(children) && children.length > 0;
+
+// Traducciones
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
 ---
 
 <li>
     <a
         class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 cursor-pointer"
-        href={href || null}
+        href={translatePath(itemName)}
         aria-controls={hasChildren ? "dropdown-sidebar-" + itemName : null}
         data-collapse-toggle={hasChildren ? "dropdown-sidebar-" + itemName : null}
     >
@@ -33,7 +39,7 @@ const hasChildren = Array.isArray(children) && children.length > 0;
         }
 
         <!-- Item name -->
-        <span class="flex-1 ml-3 text-left whitespace-nowrap">{itemName}</span>
+        <span class="flex-1 ml-3 text-left whitespace-nowrap">{sidebar[currentLang][itemName]}</span>
 
         <!-- Info of item -->
         {
@@ -70,9 +76,9 @@ const hasChildren = Array.isArray(children) && children.length > 0;
                     return (
                         <li>
                             <a
-                            href={elem.href}
+                            href={translatePath(elem.childrenName)}
                             class="flex items-center p-2 pl-11 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-                            >{elem.childrenName}</a>
+                            >{sidebar[currentLang][elem.childrenName]}</a>
                         </li>
                     )
                 })

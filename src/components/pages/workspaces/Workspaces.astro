@@ -1,0 +1,217 @@
+---
+import Card from '@/components/Card.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getI18N, getLangFromUrl, useTranslatedPath } from "@/i18n/index"
+
+// Traducciones
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+
+const workspaces = [
+    {
+        workspace   : 'Administración',
+        type        : 'Caso',   // Caso o Evento
+        title       : 'Título del Caso 1',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Administración',
+        type        : 'Evento', // Caso o Evento
+        title       : 'Título del Evento 1',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Consultora 143',
+        type        : 'Caso',   // Caso o Evento
+        title       : 'Título del Caso 2',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Consultora 143',
+        type        : 'Evento', // Caso o Evento
+        title       : 'Título del Evento 2',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Operaciones',
+        type        : 'Caso',   // Caso o Evento
+        title       : 'Título del Caso 3',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Operaciones',
+        type        : 'Evento', // Caso o Evento
+        title       : 'Título del Evento 3',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Contabilidad',
+        type        : 'Caso',   // Caso o Evento
+        title       : 'Título del Caso 4',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Contabilidad',
+        type        : 'Evento', // Caso o Evento
+        title       : 'Título del Evento 4',
+        state       : 'Activo', // Activo o Inactivo
+    },
+    {
+        workspace   : 'Personalizado',
+        type        : 'Evento', // Caso o Evento
+        title       : 'Título del Evento 5',
+        state       : 'Activo', // Activo o Inactivo
+    },
+];
+---
+
+<Layout title={i18n.TITLE}>
+
+    <Card>
+
+        <h3 class="col-span-12 text-xl font-semibold dark:text-white">
+            {i18n.WORKSPACE_TITLE}
+        </h3>
+
+        <div class="col-span-12 grid grid-cols-12 pl-0 bg-white mt-3 dark:bg-gray-800 ">
+            <div class="col-span-9 sm:col-span-9 md:col-span-10 flex items-center mb-4 sm:mb-0">
+                <!-- Buscador -->
+                <form class="sm:pr-3">
+                    <!-- <label for="products-search" class="sr-only">Search</label> -->
+                    <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
+                        <input
+                            type="text"
+                            name="buscar"
+                            id="products-search"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="Buscar"
+                            autocomplete="off"
+                        />
+                    </div>
+                </form>
+                <!-- Filtro -->
+                <div class="flex items-center w-full sm:justify-start">
+                    <div class="flex pl-2 space-x-1">
+                        <a
+                            href="#"
+                            class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >
+                            <svg
+                                class="w-6 h-6"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                                ><path
+                                    fill-rule="evenodd"
+                                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                    clip-rule="evenodd"></path></svg
+                            >
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-3 sm:col-span-3 md:col-span-2">
+                <!-- Nuevo caso -->
+                <a
+                    class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-[#408559] hover:bg-[#408559dd] sm:w-auto dark:bg-[#408559] dark:hover:bg-[#408559dd]"
+                    type="button"
+                    href={translatePath('case')}
+                >
+                    <svg
+                        class="w-3 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                        >
+                        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
+                    </svg>
+                    Nuevo
+                </a>
+            </div>
+        </div>
+
+        <div class="col-span-12 flex flex-col pt-4">
+            <div class="overflow-x-auto">
+                <div class="inline-block w-full align-middle">
+                    <div class="overflow-hidden shadow">
+                        <table
+                            class="w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600"
+                        >
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    {
+                                        [
+                                            'Espacio de trabajo',
+                                            'Tipo',
+                                            'Título',
+                                            'Estado',
+                                            'Acciones',
+                                        ].map((th) => (
+                                            <th
+                                                scope="col"
+                                                class="p-4 text-xs font-medium text-left text-gray-500 dark:text-gray-400"
+                                            >
+                                                {th}
+                                            </th>
+                                        ))
+                                    }
+                                </tr>
+                            </thead>
+
+                            <tbody
+                                class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
+                            >
+                                {
+                                    workspaces.map((payment) => (
+                                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <!-- Espacio de trabajo -->
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="workspace">{payment.workspace}</data>
+                                            </td>
+                                            <!-- Tipo -->
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="type">{payment.type}</data>
+                                            </td>
+                                            <!-- Título -->
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="title">{payment.title}</data>
+                                            </td>
+                                            <!-- Estado -->
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="state">{payment.state}</data>
+                                            </td>
+                                            <!-- Acciones -->
+                                            <td class="px-4 py-2 space-x-2 text-gray-900 whitespace-nowrap dark:text-white">
+                                                <a
+                                                    href={payment.type === 'Caso' ? translatePath('case') : translatePath('event')}
+                                                    class="inline-flex items-center pl-4 py-2 text-center text-gray-900 rounded-lg dark:text-white"
+                                                >
+                                                    <svg
+                                                        class="w-4 h-4"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </Card>
+
+</Layout>

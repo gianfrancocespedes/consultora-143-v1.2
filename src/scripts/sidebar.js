@@ -1,50 +1,50 @@
 export const sidebarData = [
     {
-        itemName: "Inicio",
+        itemName: "home",
         svgName: "home",
         href:"/"
     },
     {
-        itemName: "Espacio de trabajo",
+        itemName: "workspaces",
         svgName: "workspaces",
         href:"/espacios",
         info:"3"
     },
     {
-        itemName: "Usuarios",
+        itemName: "users",
         svgName: "users",
         children: [
             {
-                childrenName: "Estudiantes",
+                childrenName: "students",
                 href: "/usuarios/estudiantes",
             },
             {
-                childrenName: "Asesores",
+                childrenName: "advisors",
                 href: "/usuarios/asesores",
             },
             {
-                childrenName: "Colaboradores",
+                childrenName: "collaborators",
                 href: "/usuarios/colaboradores",
             },
         ],
     },
     {
-        itemName: "Servicios",
+        itemName: "services",
         svgName: "services",
         href:"/servicios"
     },
     {
-        itemName: "Contactos",
+        itemName: "contacts",
         svgName: "contacts",
         href:"/prueba"
     },
     {
-        itemName: "Listas",
+        itemName: "lists",
         svgName: "list",
         href:"/prueba"
     },
     {
-        itemName: "Configuración",
+        itemName: "configuration",
         svgName: "configuration",
         href:"/configuracion"
     },

@@ -1,9 +1,14 @@
 ---
 import ItemMenu from '@/components/ItemMenu.astro';
 import { sidebarData } from '@/scripts/sidebar';
+import { getLangFromUrl, useTranslatedPath } from '@/i18n/index';
+
+// Traducciones
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
 ---
 
-<div class="bg-gray-50 dark:bg-gray-800 w-full" transition:persist="sidebar">
+<div class="bg-gray-50 dark:bg-gray-800 w-0 h-0" transition:persist="sidebar">
 
     <!-- Hamburger -->
     <button
@@ -32,9 +37,11 @@ import { sidebarData } from '@/scripts/sidebar';
         class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full md:translate-x-0"
     >
         <div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800">
-            <!-- Logo -->
+            
             <div class="flex items-center pl-2.5 mb-5">
-                <a href="/" class="flex items-center">
+
+                <!-- Logo -->
+                <a href={translatePath('home')} class="flex items-center">
                     <img
                         src="/consultora.jpg"
                         class="h-6 mr-3 md:h-7"
@@ -45,6 +52,7 @@ import { sidebarData } from '@/scripts/sidebar';
                         >Consultora 143</span
                     >
                 </a>
+
                 <button
                     id="quit-sidebar"
                     type="button"
@@ -64,7 +72,9 @@ import { sidebarData } from '@/scripts/sidebar';
                         <path d="M11.2929 6.34314L12.7071 7.75735L8.46447 12L12.7071 16.2426L11.2929 17.6568L5.63605 12L11.2929 6.34314Z" fill="currentColor"/>
                     </svg>
                 </button>
+
             </div>
+
             <ul class="space-y-2 font-medium">
                 {
                     sidebarData.map(elem => {
@@ -74,6 +84,7 @@ import { sidebarData } from '@/scripts/sidebar';
                     })
                 }
             </ul>
+
         </div>
     </aside>
 

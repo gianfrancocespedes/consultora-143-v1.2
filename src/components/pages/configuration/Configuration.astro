@@ -1,0 +1,51 @@
+---
+import Card from '@/components/Card.astro';
+import { PageTheme } from '@/components/configuration/PageTheme';
+import Layout from '@/layouts/Layout.astro';
+import { LangOptions } from '@/components/configuration/LangOptions';
+import { ModalPassword } from '@/components/configuration/ModalPassword';
+import { getI18N } from "@/i18n/index"
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<Layout title={i18n.TITLE}>
+
+    <Card>
+
+        <h3 class="col-span-12 text-xl font-semibold dark:text-white">
+            {i18n.CONFIGURATION_TITLE}
+        </h3>
+
+        <div class="col-span-12 grid grid-cols-6 gap-6">
+            <!-- Appearance -->
+            <PageTheme client:load/>
+
+            <!-- Language -->
+            <LangOptions currentLocale={currentLocale} client:load />
+
+            <!-- Change Password -->
+            <ModalPassword client:load />
+
+            <!-- Logout -->
+            <div class="col-span-6 sm:col-span-3">
+                <button id="closeSession" class="flex items-center w-full p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 group">
+                    <svg 
+                        class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-[#146eab] dark:group-hover:text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" 
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                    <span class="flex-1 ml-3 text-left rtl:text-right whitespace-nowrap">
+                        Cerrar Sesión
+                    </span>
+                </button>
+            </div>
+        </div>
+        
+    </Card>
+
+</Layout>
