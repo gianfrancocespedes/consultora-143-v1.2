@@ -37,12 +37,12 @@ export const routes = {
         event         : "espacios/evento",      // Cuando esté el backend será "espacios/evento/:id"
         // Users
         students      : "usuarios/estudiantes",
-        student       : "usuarios/estudiante",  // Cuando esté el backend será "usuarios/estudiante/:id"
+        student       : "usuarios/estudiantes/estudiante",  // Cuando esté el backend será "usuarios/estudiante/:id"
         advisors      : "usuarios/asesores",
-        advisor       : "usuarios/asesor",      // Cuando esté el backend será "usuarios/asesor/:id"
-        disponibility : "usuarios/asesor/disponibilidad",   // Cuando esté el backend será "usuarios/asesor/:id/disponibilidad"
+        advisor       : "usuarios/asesores/asesor",      // Cuando esté el backend será "usuarios/asesor/:id"
+        disponibility : "usuarios/asesores/disponibilidad",   // Cuando esté el backend será "usuarios/asesor/:id/disponibilidad"
         collaborators : "usuarios/colaboradores",
-        collaborator  : "usuarios/colaborador", // Cuando esté el backend será "usuarios/colaborador/:id"
+        collaborator  : "usuarios/colaboradores/colaborador", // Cuando esté el backend será "usuarios/colaborador/:id"
         // Services
         services      : "servicios",
         service       : "servicios/servicio",   // Cuando esté el backend será "servicio/:id"
@@ -70,12 +70,12 @@ export const routes = {
         event         : "workspaces/event",     // Cuando esté el backend será "workspaces/event/:id"
         // Users
         students      : "users/students",
-        student       : "users/student",        // Cuando esté el backend será "users/student/:id"
+        student       : "users/students/student",        // Cuando esté el backend será "users/student/:id"
         advisors      : "users/advisors",
-        advisor       : "users/advisor",        // Cuando esté el backend será "users/advisor/:id"
-        disponibility : "users/advisor/disponibility",   // Cuando esté el backend será "users/advisor/:id/disponibility"
+        advisor       : "users/advisors/advisor",        // Cuando esté el backend será "users/advisor/:id"
+        disponibility : "users/advisors/disponibility",   // Cuando esté el backend será "users/advisor/:id/disponibility"
         collaborators : "users/collaborators",
-        collaborator  : "users/collaborator",   // Cuando esté el backend será "users/collaborator/:id"
+        collaborator  : "users/collaborators/collaborator",   // Cuando esté el backend será "users/collaborator/:id"
         // Services
         services      : "services",
         service       : "services/service",     // Cuando esté el backend será "service/:id"

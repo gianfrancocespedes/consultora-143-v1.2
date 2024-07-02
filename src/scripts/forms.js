@@ -306,7 +306,7 @@ export const studentsOfService = [
 export const students = [
     {
         subtitle    : "Estudiante",
-        urlWp       : "https:wa.me/51987654321",
+        urlWp       : "https://wa.me/51987654321",
         fields      : [
             {
                 typeInput   : "text",
@@ -710,7 +710,7 @@ export const advisers = [
 export const collaborators = [
     {
         subtitle    : "Colaborador",
-        urlWp       : "https:wa.me/51987654321",
+        urlWp       : "https://wa.me/51987654321",
         fields      : [
             {
                 typeInput   : "text",
