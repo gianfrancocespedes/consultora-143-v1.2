@@ -1,0 +1,75 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import TextField from '@/components/TextField.astro';
+import SelectField from '@/components/SelectField.astro';
+import { studentsOfService } from '@/scripts/forms';
+import Card from '@/components/Card.astro';
+import { getI18N, getLangFromUrl, useTranslatedPath } from "@/i18n/index"
+
+// Traducciones
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<Layout title={i18n.TITLE}>
+
+    <Card numGridCols="1">
+
+        <h3 class="mb-4 text-xl font-semibold dark:text-white">
+            {studentsOfService[0].subtitle}
+        </h3>
+        <div class="grid grid-cols-12 gap-6">
+            {
+                studentsOfService[0].fields.map((elem, index) => {
+                    switch(elem.typeInput){
+                        case 'text' :   return (
+                                            <TextField data={elem} />
+                                        )
+                        case 'select' : return (
+                                            <SelectField data={elem} />
+                                        )
+                    }
+                })
+            }
+        </div>
+
+    </Card>
+
+    <Card numGridCols="1">
+
+        <h3 class="mb-4 text-xl font-semibold dark:text-white">
+            {studentsOfService[1].subtitle}
+        </h3>
+        <div class="grid grid-cols-12 gap-6">
+            {
+                studentsOfService[1].fields.map(elem => {
+                    switch(elem.typeInput){
+                        case 'text' :   return (
+                                            <TextField data={elem} />
+                                        )
+                        case 'select' : return (
+                                            <SelectField data={elem} />
+                                        )
+                    }
+                    
+                })
+            }
+        </div>
+
+    </Card>
+
+    <Card numGridCols="1">
+
+        <div class="col-span-12 block text-right">
+            <a
+                class="text-white bg-[#146eab] hover:bg-[#146eab] focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-[#146eab] dark:hover:bg-[#146eab] dark:focus:ring-primary-800"
+                href={translatePath('service')}>Registrar servicio</a
+            >
+        </div>
+
+    </Card>
+
+</Layout>

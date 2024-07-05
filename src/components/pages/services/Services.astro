@@ -1,0 +1,225 @@
+---
+import Card from '@/components/Card.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getI18N, getLangFromUrl, useTranslatedPath } from "@/i18n/index"
+
+// Traducciones
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+
+const services = [
+    {
+        code        : "S00001",
+        studentCode : "E00001",
+        adviserCode : "A00001",
+        serviceType : "Asesoría",
+        serviceStat : "Pendiente de asignar", //Pendiente de asignar - Pendiente - Terminado
+        servicePay  : "Pendiente",
+        urlWp       : "https://wa.me/987654321",
+    },
+    {
+        code        : "S00002",
+        studentCode : "E00002, E00003",
+        adviserCode : "A00002",
+        serviceType : "Asesoría",
+        serviceStat : "Pendiente de asignar", //Pendiente de asignar - Pendiente - Terminado
+        servicePay  : "Pendiente",
+        urlWp       : "https://wa.me/987654321",
+    },
+    {
+        code        : "S00003",
+        studentCode : "E00004",
+        adviserCode : "A00003",
+        serviceType : "Asesoría",
+        serviceStat : "Pendiente de asignar", //Pendiente de asignar - Pendiente - Terminado
+        servicePay  : "Pendiente",
+        urlWp       : "https://wa.me/987654321",
+    },
+];
+---
+
+<Layout title={i18n.TITLE}>
+
+    <Card numGridCols="1">
+
+        <h3 class="mb-4 text-xl font-semibold dark:text-white">
+            Lista de servicios
+        </h3>
+
+        <div class="pl-0 bg-white block sm:flex items-center justify-between lg:mt-1.5 dark:bg-gray-800 ">
+            <div class="w-full mb-1">
+                <div class="items-center justify-between block sm:flex">
+                    <div class="flex items-center mb-4 sm:mb-0">
+                        <!-- Barra de búsqueda -->
+                        <form class="sm:pr-3" action="#" method="GET">
+                            <!-- <label for="products-search" class="sr-only">Search</label> -->
+                            <div class="relative w-48 mt-1 sm:w-64 xl:w-96">
+                                <input
+                                    type="text"
+                                    name="buscar"
+                                    id="products-search"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Buscar"
+                                    autocomplete="off"
+                                />
+                            </div>
+                        </form>
+                        <!-- Filtro -->
+                        <div class="flex items-center w-full sm:justify-end">
+                            <div class="flex pl-2 space-x-1">
+                                <a
+                                    href="#"
+                                    class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                >
+                                    <svg
+                                        class="w-6 h-6"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        ><path
+                                            fill-rule="evenodd"
+                                            d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                            clip-rule="evenodd"></path></svg
+                                    >
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ml-auto space-x-2 sm:space-x-3">
+                        <!-- Nuevo servicio -->
+                        <a
+                            id="createProductButton"
+                            class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-[#408559] hover:bg-[#408559dd] sm:w-auto dark:bg-[#408559] dark:hover:bg-[#408559dd]"
+                            type="button"
+                            href={translatePath('newService')}
+                        >
+                            <svg
+                                class="w-5 h-5 mr-2 -ml-1"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg"
+                                ><path
+                                    fill-rule="evenodd"
+                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                    clip-rule="evenodd"></path></svg
+                            >
+                            Nuevo servicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col mt-4">
+            <div class="overflow-x-auto">
+                <div class="inline-block min-w-full align-middle">
+                    <div class="overflow-hidden shadow">
+                        <table
+                            class="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-600"
+                        >
+                            <thead class="bg-gray-100 dark:bg-gray-700">
+                                <tr>
+                                    {
+                                        [
+                                            'Código',
+                                            'Estudiante',
+                                            'Asesor',
+                                            'Tipo de servicio',
+                                            'Estado de servicio',
+                                            'Estado de pago',
+                                            'Acciones',
+                                        ].map((th) => (
+                                            <th
+                                                scope="col"
+                                                class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400"
+                                            >
+                                                {th}
+                                            </th>
+                                        ))
+                                    }
+                                </tr>
+                            </thead>
+
+                            <tbody
+                                class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700"
+                            >
+                                {
+                                    services.map((service) => (
+                                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="code">{service.code}</data>
+                                            </td>
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="studentCode">{service.studentCode}</data>
+                                            </td>
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="adviserCode">{service.adviserCode}</data>
+                                            </td>
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="serviceType">{service.serviceType}</data>
+                                            </td>
+                                            <!-- Estado de servicio -->
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="serviceStat">
+                                                    {
+                                                        service.serviceStat == "Pendiente de asignar" ?
+                                                        (<img class="h-5 w-5 inline align-middle" src="https://img.icons8.com/color/48/hourglass.png" alt="Pending"/>) :
+                                                        null
+                                                    }
+                                                    <span class="mt-4 align-middle">{service.serviceStat}</span>
+                                                </data>
+                                            </td>
+                                            <!-- Estado de pago -->
+                                            <td class="px-4 py-2 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <data value="servicePay">
+                                                    <!-- {
+                                                        service.servicePay == "Pendiente" ?
+                                                        (<img class="inline align-middle" width="30" height="30" src="https://img.icons8.com/color/48/hourglass.png" alt="Pending"/>) :
+                                                        null
+                                                    } -->
+                                                    <svg class="h-4 w-4 inline align-middle" viewBox="0 0 128 128" aria-hidden="true">
+                                                        <circle cx="63.93" cy="64" r="60" fill="#f2a600"/>
+                                                        <circle cx="60.03" cy="63.1" r="56.1" fill="#ffcc32"/>
+                                                        <path d="M23.93 29.7c4.5-7.1 14.1-13 24.1-14.8c2.5-.4 5-.6 7.1.2c1.6.6 2.9 2.1 2 3.8c-.7 1.4-2.6 2-4.1 2.5a44.64 44.64 0 0 0-23 17.4c-2 3-5 11.3-8.7 9.2c-3.9-2.3-3.1-9.5 2.6-18.3z" fill="#fff170"/>
+                                                    </svg>
+                                                    <span>{service.servicePay}</span>
+                                                </data>
+                                            </td>
+                                            <!-- Acciones -->
+                                            <td class="px-4 py-2 space-x-2 text-gray-900 whitespace-nowrap dark:text-white">
+                                                <a
+                                                    href={translatePath('service')}
+                                                    class="inline-flex items-center px-4 py-2  text-center text-gray-900 rounded-lg dark:text-white"
+                                                >
+                                                    <svg
+                                                        class="w-4 h-4"
+                                                        fill="currentColor"
+                                                        viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                    >
+                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </Card>
+
+</Layout>

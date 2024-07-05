@@ -1,0 +1,23 @@
+---
+import Card from '@/components/Card.astro';
+import Calendar from '@/components/Calendar.astro';
+import Layout from '@/layouts/Layout.astro';
+import { getI18N, getLangFromUrl, useTranslatedPath } from "@/i18n/index"
+
+// Traducciones
+const currentLang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(currentLang);
+
+const { currentLocale } = Astro;
+const i18n = getI18N({ currentLocale });
+---
+
+<Layout title={i18n.TITLE}>
+
+    <Card numGridCols="1">
+
+        <Calendar/>
+
+    </Card>
+    
+</Layout>
