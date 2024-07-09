@@ -5,7 +5,7 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
     integrations: [tailwind(), react()],
-    output: 'server', // Pendiente de revisar
+    // output: 'server', // Pendiente de revisar
     i18n: {
         defaultLocale: 'es',
         locales: ['es', 'en'],
